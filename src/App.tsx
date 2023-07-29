@@ -1,7 +1,10 @@
 function App() {
 
   return (
-    <div>Hello World</div>
+    <div>
+      <h1>      Hello dashboard apps as responsive 
+</h1>
+    </div>
   )
 }
 
