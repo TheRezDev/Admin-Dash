@@ -32,7 +32,7 @@ const Layout = ()=> {
       <Footer/>
     </div>
   )
-}
+};
 
 
 
