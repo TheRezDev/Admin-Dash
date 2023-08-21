@@ -8,10 +8,13 @@ const Menu = () => {
         {menu.map(item =>(
             <div className="item" key={item.id}>
                 <span className="title">{item.title}</span>
-                {item.listItems.map(listItem => (<Link to={listItem.url} className='listItem' key={listItem.id}>
-                    <img src={listItem.icon} alt="" />
-                    <span className="listItemTitle">{listItem.title}</span>
-                </Link>))}
+                {item.listItems.map(listItems =>
+                (
+                    <Link to={listItems.url} className='listItem' key={listItems.id}>
+                    <img src={listItems.icon} alt="" />
+                    <span className="listItemTitle">{listItems.title}</span>
+                    </Link>
+                ))}
                 
             </div>
         ))}
