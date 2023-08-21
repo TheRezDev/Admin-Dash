@@ -4,6 +4,7 @@ import './users.scss'
 import { userRows } from '../../data'
 import { useState } from 'react';
 import Add from './../../components/add/Add';
+import { useQuery } from '@tanstack/react-query';
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -16,19 +17,6 @@ const columns: GridColDef[] = [
       return <img src={params.row.img || '/noavatar.png'} alt="" />
     },
   },
-  // {
-  //   field: 'actions',
-  //   headerName: 'Actions',
-  //   width: 100,
-  //   renderCell: (params) => {
-  //     return (
-  //       <div className="action">
-  //         <div className="view">View</div>
-  //         <div className="delete">Delete</div>
-  //       </div>
-  //     )
-  //   },
-  // },
   {
     field: 'firstName',
     headerName: 'First name',
@@ -48,15 +36,6 @@ const columns: GridColDef[] = [
     width: 200,
     editable: true,
   },
-  // {
-  //   field: 'fullName',
-  //   headerName: 'Full name',
-  //   description: 'This column has a value getter and is not sortable.',
-  //   sortable: false,
-  //   width: 160,
-  //   valueGetter: (params: GridValueGetterParams) =>
-  //     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  // },
   {
     field: 'phone',
     headerName: 'Phone',
@@ -77,15 +56,33 @@ const columns: GridColDef[] = [
   },
 ];
 
+
 const Users = () => {
   const [open, setOpen] = useState(false);
+  
+  
+    const { isLoading, data } = useQuery({
+      queryKey: ['repoData'],
+      queryFn: () =>
+        fetch('https://localhost:5173/api/users').then((res) =>
+          res.json()
+        ),
+    })
+  
+  
+  
+  
   return (
     <div className="users">
       <div className="info">
         <h1>Users</h1>
         <button onClick={()=>setOpen(true)}>Add New User</button>
       </div>
-      <DataTable slug='users' columns={columns} rows={userRows} />
+      {isLoading ? (
+        "Loading..."
+      ) : (
+        <DataTable slug='users' columns={columns} rows={data} />
+      )}
       {open && <Add slug="user" columns={columns} setOpen={setOpen} />}
     </div>
   )
