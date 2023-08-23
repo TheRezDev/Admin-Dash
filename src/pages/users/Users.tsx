@@ -1,7 +1,6 @@
-import { GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
+import { GridColDef } from '@mui/x-data-grid'
 import DataTable from '../../components/dataTable/DataTable'
 import './users.scss'
-import { userRows } from '../../data'
 import { useState } from 'react';
 import Add from './../../components/add/Add';
 import { useQuery } from '@tanstack/react-query';
@@ -61,13 +60,11 @@ const Users = () => {
   const [open, setOpen] = useState(false);
   
   
-    const { isLoading, data } = useQuery({
-      queryKey: ['repoData'],
-      queryFn: () =>
-        fetch('https://localhost:5173/api/users').then((res) =>
-          res.json()
-        ),
-    })
+  const { isLoading, data } = useQuery({
+    queryKey: ['allusers'],
+    queryFn: () =>
+      fetch('http://localhost:8800/api/users').then((res) => res.json()),
+  });
   
   
   
